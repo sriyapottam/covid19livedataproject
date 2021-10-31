@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Covid 19 live data</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    th{
+      size: 2rem;
+      color:brown;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    h1{
+         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    body{
+      background-color: #F6EABE;
+    }
+  </style>
+</head>
+<body>
+      <div class="container">
+      	<h1 class="text-center mt-5">COVID-19 LIVE STATUS</h1>
+      	<table class="table"><br><br>
+  <thead>
+    <tr>
+      <th>Total cases</th>
+      <th>Total deaths</th>
+      <th>Total recovered</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="data"></tr>
+    
+  </tbody>
+</table><br><br>
+<button onclick="refreshData()" class="btn-danger btn-block">
+    Refresh Data
+</button>
+      </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+	
+		init()
+		function init(){
+			var url="https://api.covid19api.com/summary"
+            var data =' '
+			$.get(url,function(data){
+				console.log(data.Global)
+				data=` 
+                <td>${data.Global.TotalConfirmed}</td>
+				<td>${data.Global.TotalDeaths}</td>
+				<td>${data.Global.TotalRecovered}</td>
+                `
+                
+				$('#data').html(data)  
+
+
+
+				
+			})
+		}
+        function refreshData(){
+            clearData()
+            init()
+        }
+        function clearData(){
+            $("#data").empty()
+            init()
+        }
+	
+    
+</script>
+</html>
